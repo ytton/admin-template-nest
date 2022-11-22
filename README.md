@@ -77,7 +77,7 @@ yton-admin-nest
 
 ## API Doc
 
-具体API文档参考：https://console-docs.apipost.cn/preview/ada9fcbd2d3188a4/aa94eb5f91ef8bfc
+具体API文档参考：https://console-docs.apipost.cn/preview/0191de7b24ce4a57/66447df746ed1165
 
 ### routes
 
