@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  avatar    String?
+  username  String   @unique
+  email     String?  @unique
+  password  String
+  roles     Role[]
+  status    Status   @default(enable)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  perms     Perm[]
+  users     User[]
+  status    Status   @default(enable)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Perm {
+  id        Int      @id @default(autoincrement())
+  name      String
+  url       String?
+  method    Method?
+  entityId  Int?
+  entity    Perm?    @relation("EntityPerms", fields: [entityId], references: [id])
+  perms     Perm[]   @relation("EntityPerms")
+  roles      Role[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Status {
+  enable
+  disable
+}
+
+enum Method {
+  GET
+  POST
+  DELETE
+  PATCH
+}
