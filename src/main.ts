@@ -20,6 +20,6 @@ async function bootstrap() {
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector), { strategy: 'exposeAll' }));
   //静态资源
   app.useStaticAssets('uploads', { prefix: '/uploads' });
-  await app.listen(3000, '127.0.0.1');
+  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
 bootstrap();
